@@ -1,11 +1,14 @@
 <template>
   <div class="container" @click="clickHandle('test click', $event)">
 
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+    <div class="userinfo" @click="bindViewTap" v-if="userInfo.avatarUrl">
+      <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
+    </div>
+    <div class="auth-userinfo" v-else>
+      <button open-type="getUserInfo" @getuserinfo="gotUserInfo">授权登录</button>
     </div>
 
     <div class="usermotto">
@@ -48,11 +51,18 @@ export default {
         success: () => {
           wx.getUserInfo({
             success: (res) => {
+              console.log('res', res)
               this.userInfo = res.userInfo
+            },
+            fail: (res) => {
+              console.log('err', res)
             }
           })
         }
       })
+    },
+    gotUserInfo (res) {
+      this.userInfo = res.target.userInfo
     },
     clickHandle (msg, ev) {
       console.log('clickHandle:', msg, ev)
