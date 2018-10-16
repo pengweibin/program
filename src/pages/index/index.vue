@@ -1,6 +1,5 @@
 <template>
   <div class="container" @click="clickHandle('test click', $event)">
-
     <div class="userinfo" @click="bindViewTap" v-if="userInfo.avatarUrl">
       <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
       <div class="userinfo-nickname">
@@ -10,13 +9,11 @@
     <div class="auth-userinfo" v-else>
       <button open-type="getUserInfo" @getuserinfo="gotUserInfo">授权登录</button>
     </div>
-
     <div class="usermotto">
       <div class="user-motto">
         <card :text="motto"></card>
       </div>
     </div>
-
     <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
@@ -27,7 +24,6 @@
 
 <script>
 import card from '@/components/card'
-
 export default {
   data () {
     return {
@@ -35,11 +31,9 @@ export default {
       userInfo: {}
     }
   },
-
   components: {
     card
   },
-
   methods: {
     bindViewTap () {
       const url = '../logs/main'
@@ -68,7 +62,6 @@ export default {
       console.log('clickHandle:', msg, ev)
     }
   },
-
   created () {
     // 调用应用实例的方法获取全局数据
     this.getUserInfo()
